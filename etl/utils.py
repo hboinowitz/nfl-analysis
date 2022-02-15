@@ -31,5 +31,17 @@ def parse_coordinates(coordinates: str) -> str:
     lat = float(f"-{lat[:-2].strip()}")
     return lat, lon
 
+def parse_result(result: str) -> Tuple[int, int, bool]:
+    overtime = False
+    if pd.isna(result):
+        return [np.nan for i in range(3)]
+    splitted_result = result.split()
+    if len(splitted_result) > 2:
+        return ValueError("The `result` you have passed does not match the reuiqred format.")
+    if len(splitted_result) == 2:
+        result = "".join(splitted_result[:-1])
+        overtime = True
+    return overtime, *result.split(':')
+
 remove_brackets = lambda string_with_brakets : re.sub(r'\[.*?\]', '', string_with_brakets)
 snake_case = lambda str_ : str_.lower().replace(" ", "_")

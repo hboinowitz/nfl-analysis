@@ -10,7 +10,12 @@ def import_superbowl_data():
 
     afl_championships = afl_championships.rename({'Siegende Liga':'Siegende Conference', 
                                                 'MVP *': 'MVP'}, axis=1)
+
     # Merge old and new Superbowls
     superbowls = pd.concat([afl_championships, superbowls_nfl])
+
+    superbowls = superbowls.rename(utils.snake_case, axis=1)
+
+    superbowls[['overtime', 'points_home', 'points_away']] = superbowls['ergebnis'].apply(utils.parse_result).to_list()
     superbowls.to_parquet('../data/superbowls.parquet')
     superbowl_stats.to_parquet('../data/superbowl_stats_per_team.parquet')
