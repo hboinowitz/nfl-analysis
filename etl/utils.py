@@ -1,6 +1,9 @@
+from typing import Tuple
 from bs4 import BeautifulSoup
 import requests as rq
 import pandas as pd
+import regex as re
+import numpy as np
 
 def get_wiki_table(url:str, first: bool = True) -> pd.DataFrame:
     """Load a table from Wikipedia for a given URL
@@ -27,3 +30,6 @@ def parse_coordinates(coordinates: str) -> str:
     lon = float(lon.strip())
     lat = float(f"-{lat[:-2].strip()}")
     return lat, lon
+
+remove_brackets = lambda string_with_brakets : re.sub(r'\[.*?\]', '', string_with_brakets)
+snake_case = lambda str_ : str_.lower().replace(" ", "_")

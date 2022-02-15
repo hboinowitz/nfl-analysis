@@ -1,5 +1,5 @@
 import utils
-import regex as re
+
 import pandas as pd
 
 def import_nfl_team_data():
@@ -7,18 +7,16 @@ def import_nfl_team_data():
     nfl_teams = utils.get_wiki_table("https://en.wikipedia.org/wiki/National_Football_League")
 
     ## Cleaning up
-    remove_brackets = lambda string_with_brakets : re.sub(r'\[.*?\]', '', string_with_brakets)
 
     # Drop column multi-index
     nfl_teams_cleaned = nfl_teams.droplevel(1, axis=1)
 
     # Rename columns
-    snake_case = lambda str_ : str_.lower().replace(" ", "_")
-    nfl_teams_cleaned = nfl_teams_cleaned.rename(snake_case, axis=1)
-    nfl_teams_cleaned = nfl_teams_cleaned.rename(remove_brackets, axis=1)
+    nfl_teams_cleaned = nfl_teams_cleaned.rename(utils.snake_case, axis=1)
+    nfl_teams_cleaned = nfl_teams_cleaned.rename(utils.remove_brackets, axis=1)
 
     # Remove footnotes
-    nfl_teams_cleaned = nfl_teams_cleaned.applymap(remove_brackets)
+    nfl_teams_cleaned = nfl_teams_cleaned.applymap(utils.remove_brackets)
     nfl_teams_cleaned.iloc[0]['coordinates'] 
     nfl_teams_cleaned.iloc[2]['coordinates']
 
