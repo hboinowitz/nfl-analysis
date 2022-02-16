@@ -1,0 +1,7 @@
+bs4
+numpy
+pandas
+plotly
+regex
+streamlit
+ipykernel
