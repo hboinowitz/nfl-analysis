@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import List, Tuple, Union
 from bs4 import BeautifulSoup
 import requests as rq
 import pandas as pd
@@ -45,3 +45,20 @@ def parse_result(result: str) -> Tuple[int, int, bool]:
 
 remove_brackets = lambda string_with_brakets : re.sub(r'\[.*?\]', '', string_with_brakets)
 snake_case = lambda str_ : str_.lower().replace(" ", "_")
+
+def parse_historic_team_names(team_name: str) -> Tuple[str, Union[str, List[str]]]:
+    split_names = team_name.split('(')
+    if len(split_names) == 1:
+        historic_names = split_names
+        current_name = split_names[0]
+    else:
+        split_names = list(map(str.strip, split_names))
+        current_name = split_names[0]
+        historic_names = ([name[:-11] for name in split_names[1:]])
+    return current_name, historic_names
+
+def team_names_to_mapping(team_names: pd.Series) -> pd.DataFrame:
+    team_names = pd.DataFrame(team_names)
+    team_names[['current_name', 'historic_name']] = team_names['Team'].apply(parse_historic_team_names).to_list()
+    team_names = team_names.drop('Team', axis=1)
+    return team_names.explode('historic_name').reset_index(drop=True)

@@ -19,3 +19,6 @@ def import_superbowl_data():
     superbowls[['overtime', 'points_home', 'points_away']] = superbowls['ergebnis'].apply(utils.parse_result).to_list()
     superbowls.to_parquet('../data/superbowls.parquet')
     superbowl_stats.to_parquet('../data/superbowl_stats_per_team.parquet')
+
+    team_mapping = utils.team_names_to_mapping(superbowl_stats['Team'])
+    team_mapping.to_parquet('../data/team_mapping.parquet')
