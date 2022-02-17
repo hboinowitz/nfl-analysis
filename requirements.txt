@@ -5,3 +5,4 @@ plotly
 regex
 streamlit
 ipykernel
+lxml
