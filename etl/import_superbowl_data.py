@@ -13,10 +13,12 @@ def import_superbowl_data():
 
     # Merge old and new Superbowls
     superbowls = pd.concat([afl_championships, superbowls_nfl])
-
     superbowls = superbowls.rename(utils.snake_case, axis=1)
 
-    superbowls[['overtime', 'points_home', 'points_away']] = superbowls['ergebnis'].apply(utils.parse_result).to_list()
+    superbowls[['overtime', 'points_winner', 'points_looser']] = superbowls['ergebnis'].apply(utils.parse_result).to_list()
+    # Correct hidden zeros
+    superbowls.loc[superbowls['points_winner'] < superbowls['points_looser'], 'points_looser'] /= 10
+
     superbowls.to_parquet('../data/superbowls.parquet')
     superbowl_stats.to_parquet('../data/superbowl_stats_per_team.parquet')
 
