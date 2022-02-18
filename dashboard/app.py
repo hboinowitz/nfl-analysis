@@ -23,3 +23,5 @@ teams = utils.add_league_for_teams(teams)
 map_of_teams = utils.generate_map_for_teams(teams)
 st.plotly_chart(map_of_teams)
 
+superbowl_points_figure = utils.generate_superbowl_points_plot(superbowls)
+st.plotly_chart(superbowl_points_figure)

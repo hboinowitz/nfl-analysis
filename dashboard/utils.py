@@ -39,3 +39,35 @@ def generate_map_for_teams(teams: pd.DataFrame) -> go.Figure:
             geo_scope='usa',
         )
     return fig
+
+def generate_superbowl_points_plot(superbowl: pd.DataFrame) -> go.Figure:
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+            x = superbowl['datum'].dt.year,
+            y = superbowl['total_points'],
+            line_color = 'rgba(0, 0, 255, .3)',
+            name = 'total points'
+        )
+    )
+
+    fig.add_trace(go.Scatter(
+            x = superbowl['datum'].dt.year,
+            y = superbowl['points_winner'],
+            name = 'points winner'
+        )
+    )
+
+    fig.add_trace(go.Scatter(
+            x = superbowl['datum'].dt.year,
+            y = superbowl['points_looser'],
+            name = 'points looser'
+        )
+    )
+
+    fig.update_layout(
+            title = 'Points in the Superbowls',
+            xaxis_title = 'year',
+            yaxis_title = 'points'
+    )
+
+    return fig
