@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-st.title('NFL Analysis')
+st.set_page_config(page_title='NFL Analysis', layout="wide")
+st.title('NFL Analysis 🏈')
 
-@st.cache()
+@st.cache(suppress_st_warning = True, allow_output_mutation=True)
 def load_teams():
     teams = pd.read_parquet("../data/teams.parquet")
     return teams

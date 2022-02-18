@@ -35,6 +35,9 @@ def generate_map_for_teams(teams: pd.DataFrame) -> go.Figure:
     )
 
     fig.update_layout(
+            autosize=False,
+            width = 1300,
+            height = 800,
             title = 'NFL-Teams',
             geo_scope='usa',
         )
@@ -65,6 +68,8 @@ def generate_superbowl_points_plot(superbowl: pd.DataFrame) -> go.Figure:
     )
 
     fig.update_layout(
+            width = 1000,
+            height = 500,
             title = 'Points in the Superbowls',
             xaxis_title = 'year',
             yaxis_title = 'points'
