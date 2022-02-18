@@ -1,5 +1,6 @@
 import utils
 import pandas as pd
+import locale
 
 def import_superbowl_data():
     ## Load data for all Superbowls
@@ -18,6 +19,11 @@ def import_superbowl_data():
     superbowls[['overtime', 'points_winner', 'points_looser']] = superbowls['ergebnis'].apply(utils.parse_result).to_list()
     # Correct hidden zeros
     superbowls.loc[superbowls['points_winner'] < superbowls['points_looser'], 'points_looser'] /= 10
+    superbowls['total_points'] = superbowls['points_winner'] + superbowls['points_looser']
+    
+    # Set locale for parsing dates
+    locale.setlocale(locale.LC_ALL, 'de_DE')
+    superbowls['datum'] = pd.to_datetime(superbowls['datum'], format='%d. %B %Y')
 
     superbowls.to_parquet('../data/superbowls.parquet')
     superbowl_stats.to_parquet('../data/superbowl_stats_per_team.parquet')
