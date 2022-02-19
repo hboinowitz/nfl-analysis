@@ -54,7 +54,8 @@ def parse_historic_team_names(team_name: str) -> Tuple[str, Union[str, List[str]
     else:
         split_names = list(map(str.strip, split_names))
         current_name = split_names[0]
-        historic_names = ([name[:-11] for name in split_names[1:]])
+        historic_names = [current_name]
+        historic_names.extend([name[:-11] for name in split_names[1:]])
     return current_name, historic_names
 
 def team_names_to_mapping(team_names: pd.Series) -> pd.DataFrame:
