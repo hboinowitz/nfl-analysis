@@ -6,3 +6,4 @@ regex
 streamlit
 ipykernel
 lxml
+pytest
