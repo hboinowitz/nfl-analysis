@@ -17,4 +17,4 @@ testrun: tests
 	(. $(PATH_TO_ACTIVATE) && pytest tests)
 
 beautiful:
-	(. $(PATH_TO_ACTIVATE) && black nfl_analysis)
+	(. $(PATH_TO_ACTIVATE) && black .)
