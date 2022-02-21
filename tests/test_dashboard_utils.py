@@ -2,6 +2,7 @@ import pytest
 import pandas as pd
 from nfl_analysis.dashboard import utils
 
+
 class TestDashboardUtils:
     @pytest.fixture
     def teams(self):
