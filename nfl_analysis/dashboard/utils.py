@@ -19,8 +19,8 @@ def generate_map_for_teams(teams: pd.DataFrame) -> go.Figure:
     symbol_for_team = teams['division'].map(symbol_mapping)
 
     fig = go.Figure(data=go.Scattergeo(
-            lon = teams['lat'],
-            lat = teams['lon'],
+            lon = teams['lon'],
+            lat = teams['lat'],
             text = teams['club'],
             mode = 'markers',
             marker = dict(

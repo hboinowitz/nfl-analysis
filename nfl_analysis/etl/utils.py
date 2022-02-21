@@ -25,10 +25,10 @@ def get_wiki_table(url:str, first: bool = True) -> pd.DataFrame:
 
 def parse_coordinates(coordinates: str) -> str:
 
-    combined_decimal_lon_lat = coordinates.replace("\ufeff", "").split('/')[-1]
-    lon, lat = combined_decimal_lon_lat.split('°N ')
-    lon = float(lon.strip())
-    lat = float(f"-{lat[:-2].strip()}")
+    combined_decimal_lat_lon = coordinates.replace("\ufeff", "").split('/')[-1]
+    lat, lon = combined_decimal_lat_lon.split('°N ')
+    lat = float(lat.strip())
+    lon = float(f"-{lon[:-2].strip()}")
     return lat, lon
 
 def parse_result(result: str) -> Tuple[int, int, bool]:
