@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+
 def load(table_name: str) -> pd.DataFrame:
     path = os.path.dirname(os.path.realpath(__file__))
     try:
