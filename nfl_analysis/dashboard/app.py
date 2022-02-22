@@ -1,4 +1,5 @@
 import utils
+from nfl_analysis.data import load
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -9,19 +10,19 @@ st.title("NFL Analysis 🏈")
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def load_teams():
-    teams = pd.read_parquet("../data/teams.parquet")
+    teams = load("teams")
     return teams
 
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def load_superbowl():
-    superbowls = pd.read_parquet("../data/superbowls.parquet")
+    superbowls = load("superbowls")
     return superbowls
 
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def load_mapping():
-    mapping = pd.read_parquet("../data/team_mapping.parquet")
+    mapping = load("team_mapping")
     return mapping
 
 
