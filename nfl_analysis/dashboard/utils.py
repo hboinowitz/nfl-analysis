@@ -216,3 +216,44 @@ def get_cumulated_wins_per_division(
     )
 
     return wins_and_losses_per_division_cumulated, combined_wins_and_losses
+
+
+def parse_first_nfl_season(raw_season_string: str) -> int:
+    splitted_season_string = raw_season_string.split(",")
+    parts = len(splitted_season_string)
+    if parts > 2:
+        raise ValueError("Wrong input format.")
+    if parts == 2:
+        cleaned_season = splitted_season_string[-1].split("(NFL)")[0].strip()
+        return int(cleaned_season)
+    return int(splitted_season_string[0])
+
+
+def plot_teams_per_year(teams):
+    teams["first_season_cleaned"] = pd.to_datetime(
+        teams["first_season"].apply(parse_first_nfl_season), format="%Y"
+    )
+    teams_per_year = (
+        teams[["club", "first_season_cleaned"]]
+        .groupby("first_season_cleaned")
+        .agg(teams=("club", "count"))
+        .cumsum()
+    )
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=teams_per_year.index,
+            y=teams_per_year["teams"],
+        )
+    )
+
+    fig.update_layout(
+        width=1000,
+        height=500,
+        title=f"Teams in the NFL per Year",
+        xaxis_title="year",
+        yaxis_title="number of teams",
+    )
+
+    return fig

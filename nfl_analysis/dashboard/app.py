@@ -54,3 +54,6 @@ apperances_per_division = combined_wins_and_losses.groupby(["league", "division"
 st.plotly_chart(wins_and_losses_per_division_figure)
 st.markdown("#### Overview of the Wins and Losses per Division")
 st.dataframe(apperances_per_division)
+
+teams_per_year_figure = utils.plot_teams_per_year(teams)
+st.plotly_chart(teams_per_year_figure)
